@@ -1,0 +1,1 @@
+start ../Release/FractalRender.exe

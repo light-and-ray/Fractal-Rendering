@@ -78,7 +78,7 @@ void partRender(int startY, int stopY, Image& image, double start_x, double star
 			c.x += step * quality;
 		}
 		c.x = start_x;
-		c.y -= step * quality;
+		c.y += step * quality;
 	}
 }
 
@@ -105,7 +105,7 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 			HEIGHT - (i + 1) * STEP,
 			std::ref(image),
 			start_x,
-			start_y - i * step * STEP,
+			start_y + i * step * STEP,
 			step,
 			quality,
 			velAvg_map);
@@ -116,7 +116,7 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 		0,
 		std::ref(image),
 		start_x,
-		start_y - (threads-1) * step * STEP,
+		start_y + (threads-1) * step * STEP,
 		step,
 		quality,
 		velAvg_map);
@@ -201,9 +201,10 @@ class Fractal
 			switch (renderingProgres)
 			{
 			case 2:
-				std::cout << "\rlim = " << g_lim << " size = " << size
-					<< " c = " << x << "+" << y << "i"
-					<< "           ";
+				std::cout 
+					<< "\rc = " << x + size/2 << "+" << y + size /2 << "i | "
+					<< "lim = " << g_lim << " size = " << size
+					<< "             ";
 			case 1:
 			case 0:
 				draw(pow(2, renderingProgres));
@@ -220,54 +221,59 @@ class Fractal
 	{
 		int controlTimeLimit = 200;
 		int frames = 30;
-		if (clockControl.getElapsedTime().asMilliseconds() >= controlTimeLimit and 
+		if (clockControl.getElapsedTime().asMilliseconds() >= controlTimeLimit and
 			window->hasFocus())
 		{
-			if (Keyboard::isKeyPressed(Keyboard::Up) or
-				Keyboard::isKeyPressed(Keyboard::W))
+			//move
 			{
-				y -= (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
-				needDisplay = true;
-				renderingProgres = 2;
-				//lastRenderClock.restart();
-				clockControl.restart();
+				if (Keyboard::isKeyPressed(Keyboard::Up) or
+					Keyboard::isKeyPressed(Keyboard::W))
+				{
+					y += (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
+					needDisplay = true;
+					renderingProgres = 2;
+					//lastRenderClock.restart();
+					clockControl.restart();
+				}
+
+				if (Keyboard::isKeyPressed(Keyboard::Down) or
+					Keyboard::isKeyPressed(Keyboard::S))
+				{
+					y -= (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
+					needDisplay = true;
+					renderingProgres = 2;
+					//lastRenderClock.restart();
+					clockControl.restart();
+				}
+
+				if (Keyboard::isKeyPressed(Keyboard::Left) or
+					Keyboard::isKeyPressed(Keyboard::A))
+				{
+					x -= (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
+					needDisplay = true;
+					renderingProgres = 2;
+					//lastRenderClock.restart();
+					clockControl.restart();
+				}
+
+				if (Keyboard::isKeyPressed(Keyboard::Right) or
+					Keyboard::isKeyPressed(Keyboard::D))
+				{
+					x += (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
+					needDisplay = true;
+					renderingProgres = 2;
+					//lastRenderClock.restart();
+					clockControl.restart();
+				}
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::Down) or
-				Keyboard::isKeyPressed(Keyboard::S))
+			//zoom
 			{
-				y += (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
-				needDisplay = true;
-				renderingProgres = 2;
-				//lastRenderClock.restart();
-				clockControl.restart();
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Left) or
-				Keyboard::isKeyPressed(Keyboard::A))
-			{
-				x -= (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
-				needDisplay = true;
-				renderingProgres = 2;
-				//lastRenderClock.restart();
-				clockControl.restart();
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Right) or
-				Keyboard::isKeyPressed(Keyboard::D))
-			{
-				x += (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? size / 5 : size / 25;
-				needDisplay = true;
-				renderingProgres = 2;
-				//lastRenderClock.restart();
-				clockControl.restart();
-			}
-
 			if (Keyboard::isKeyPressed(Keyboard::Equal))
 			{
 				double zoom = (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? 1.5 : 1.1;
 				x += (size - size / zoom) / 2;
-				y -= (size - size / zoom) / 2;
+				y += (size - size / zoom) / 2;
 				size /= zoom;
 				double zoom_ = pow(zoom, 1. / frames);
 				for (int i = 0; i < frames; i++)
@@ -279,9 +285,9 @@ class Fractal
 					window->display();
 
 					Clock clck;
-					while (clck.getElapsedTime().asMilliseconds() < controlTimeLimit / frames) { }
+					while (clck.getElapsedTime().asMilliseconds() < controlTimeLimit / frames) {}
 				}
-				
+
 
 				needDisplay = true;
 				renderingProgres = 2;
@@ -294,19 +300,21 @@ class Fractal
 				double zoom = (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? 1.5 : 1.1;
 				size *= 1.5;
 				x -= (size - size / zoom) / 2;
-				y += (size - size / zoom) / 2; 
+				y -= (size - size / zoom) / 2;
 				needDisplay = true;
 				renderingProgres = 2;
 				//lastRenderClock.restart();
 				clockControl.restart();
 			}
+			}
 
-			if (Keyboard::isKeyPressed(Keyboard::F1))
+
+			if (Keyboard::isKeyPressed(Keyboard::F2))
 			{
 				g_lim /= 1.1;
 				clockControl.restart();
 			}
-			if (Keyboard::isKeyPressed(Keyboard::F2))
+			if (Keyboard::isKeyPressed(Keyboard::F3))
 			{
 				g_lim *= 1.1;
 				needDisplay = true;
@@ -317,7 +325,7 @@ class Fractal
 			if (Keyboard::isKeyPressed(Keyboard::F4))
 			{
 				std::stringstream name;
-				name << "shot_" << time(NULL) << "_re" << x << "_im" << y << "_size" << size << "lim" << g_lim << ".png";
+				name << "shot_" << time(NULL) << "_re" << x + size/2 << "_im" << y + size / 2 << "_size" << size << "lim" << g_lim << ".png";
 				texture.copyToImage().saveToFile(name.str());
 				std::cout << "\n" << name.str() << " SAVED\n";
 				clockControl.restart();
@@ -326,7 +334,7 @@ class Fractal
 	}
 
 public:
-	Fractal(RenderWindow* window, double x = -1.5, double y = 1.5, double size = 3, int threads = 21) :
+	Fractal(RenderWindow* window, double x = -1.5, double y = -1.5, double size = 3, int threads = 21) :
 		x(x), y(y), size(size), threads(threads), window(window) 
 	{
 		rect.setSize(Vector2f(WIDTH, HEIGHT));
@@ -363,8 +371,8 @@ int main()
 		<< "press \+ or \- to zoom\n"
 		<< "wasd or cross to move\n"
 		<< "hold LAlt to slow\n"
-		<< "F1 - decrease iterations limit\n"
-		<< "F2 - increase iterations limit\n"
+		<< "F2 - decrease iterations limit\n"
+		<< "F3 - increase iterations limit\n"
 		<< "F4 to take shot\n";
 
 	std::cout << "\n";
