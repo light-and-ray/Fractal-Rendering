@@ -12,7 +12,7 @@ typedef Vector2<double> Vector2d;
 typedef unsigned long long ull;
 
 double g_inf = 81;
-ull g_lim = 200;
+ull g_lim = 130;
 
 Image PALETTE;
 
@@ -23,12 +23,15 @@ Color calcColor(Vector2d c, double& velAvg)
 	ull i = 0;
 	velAvg = 0;
 	double vel;
+	double sn = 0;
 	while (1)
 	{
 		z1.x = pow(z0.x, 3) - 3 * z0.x * pow(z0.y, 2) + c.x;
 		z1.y = 3 * pow(z0.x, 2) * z0.y - pow(z0.y, 3) + c.y;
-		i++;
 		
+		sn = i - log(log(pow(z1.x, 2) + pow(z1.y, 2))/log(3))/log(3) +2;
+		i += 1;
+
 		vel = 1. / (1 + pow(z1.x - z0.x, 2) + pow(z1.y - z0.y, 2));
 		//vel = (1. / (1 + pow(z0.x, 2) + pow(z0.y, 2)));
 		velAvg += vel;
@@ -37,7 +40,8 @@ Color calcColor(Vector2d c, double& velAvg)
 
 		if (pow(z0.x, 2) + pow(z0.y, 2) >= g_inf)
 		{
-			velAvg /= i;
+			//velAvg /= i;
+			velAvg /= sn;
 			return Color::White;
 			//int col = (float)i / g_lim * 255;
 			//return Color(col, col, col);
@@ -123,14 +127,14 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 	}
 
 	{ //paint exterier
-		double map_min = velAvg_map[0];
-		double map_max = velAvg_map[0];
+		double map_min = -1;
+		double map_max = -1;
 
 		for (int i = 1; i < WIDTH * HEIGHT; i++)
 		{
 			if (velAvg_map[i] == -1) continue;
-			if (velAvg_map[i] < map_min) map_min = velAvg_map[i];
-			if (velAvg_map[i] > map_max) map_max = velAvg_map[i];
+			if (velAvg_map[i] < map_min or map_min == -1) map_min = velAvg_map[i];
+			if (velAvg_map[i] > map_max or map_max == -1) map_max = velAvg_map[i];
 		}
 
 		Color col;
@@ -176,9 +180,11 @@ class Fractal
 	{
 		window->clear();
 		texture = render(x, y, size, threads, quality);
-		rect.setTexture(&texture);
-		rect.setSize(Vector2f(WIDTH, HEIGHT));
-		rect.setPosition(0, 0);
+		RectangleShape rect_;
+		rect_.setTexture(&texture);
+		rect_.setPosition(0, 0);
+		rect_.setSize(Vector2f(WIDTH, HEIGHT));
+		rect = rect_;
 		window->draw(rect);
 		window->display();
 	}
@@ -212,7 +218,9 @@ class Fractal
 
 	void control()
 	{
-		if (clockControl.getElapsedTime().asMilliseconds() >= 200 and 
+		int controlTimeLimit = 200;
+		int frames = 30;
+		if (clockControl.getElapsedTime().asMilliseconds() >= controlTimeLimit and 
 			window->hasFocus())
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Up) or
@@ -261,13 +269,23 @@ class Fractal
 				x += (size - size / zoom) / 2;
 				y -= (size - size / zoom) / 2;
 				size /= zoom;
-				//rect.scale(1.5, 1.5);
-				//rect.move(-0.5 * WIDTH, -0.5 * HEIGHT);
-				window->draw(rect);
-				window->display();
+				double zoom_ = pow(zoom, 1. / frames);
+				for (int i = 0; i < frames; i++)
+				{
+					rect.move(-rect.getSize().x * rect.getScale().x * (zoom_ / 2 - 1. / 2),
+						-rect.getSize().y * rect.getScale().y * (zoom_ / 2 - 1. / 2));
+					rect.scale(zoom_, zoom_);
+					window->draw(rect);
+					window->display();
+
+					Clock clck;
+					while (clck.getElapsedTime().asMilliseconds() < controlTimeLimit / frames) { }
+				}
+				
+
 				needDisplay = true;
 				renderingProgres = 2;
-				//lastRenderClock.restart();
+				lastRenderClock.restart();
 				clockControl.restart();
 			}
 
