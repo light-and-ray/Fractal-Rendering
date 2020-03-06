@@ -1,12 +1,32 @@
 ﻿  FractalRender.cpp
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(31,12): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(155,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(238,1): warning C4244: /=: преобразование "double" в "ull", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(243,1): warning C4244: *=: преобразование "double" в "ull", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(272,6): warning C4129: +: неизвестная escape-последовательность
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(272,6): warning C4129: -: неизвестная escape-последовательность
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(144,67): warning C4244: аргумент: преобразование "double" в "unsigned int", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,32): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,32): warning C4244:         with
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,32): warning C4244:         [
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,32): warning C4244:             T=float
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,32): warning C4244:         ]
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,25): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,25): warning C4244:         with
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,25): warning C4244:         [
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,25): warning C4244:             T=float
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(180,25): warning C4244:         ]
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(203,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(288,1): warning C4244: /=: преобразование "double" в "ull", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(293,1): warning C4244: *=: преобразование "double" в "ull", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,32): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,32): warning C4244:         with
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,32): warning C4244:         [
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,32): warning C4244:             T=float
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,32): warning C4244:         ]
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,25): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,25): warning C4244:         with
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,25): warning C4244:         [
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,25): warning C4244:             T=float
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(314,25): warning C4244:         ]
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(345,6): warning C4129: +: неизвестная escape-последовательность
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(345,6): warning C4129: -: неизвестная escape-последовательность
   Создание кода
-  4 of 154 functions ( 2.6%) were compiled, the rest were copied from previous compilation.
+  1 of 248 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
