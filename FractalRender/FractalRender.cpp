@@ -11,8 +11,8 @@ int HEIGHT = 1000;
 typedef Vector2<double> Vector2d;
 typedef unsigned long long ull;
 
-double g_inf = 81;
-ull g_lim = 130;
+double g_inf = 8;
+ull g_lim = 230;
 
 Image PALETTE;
 
@@ -83,12 +83,10 @@ void partRender(int startY, int stopY, Image& image, double start_x, double star
 }
 
 
-Texture render(const double& start_x, const double& start_y, const double& size, int threads, int quality)
-{
-	Image image;
-	Color color;
 
-	image.create(WIDTH, HEIGHT);
+void render(Image &image ,const double& start_x, const double& start_y, const double& size, int threads, int quality)
+{
+	Color color;
 
 	double step = size / WIDTH;
 
@@ -97,6 +95,7 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 	double* velAvg_map = new double[HEIGHT * WIDTH];
 
 	std::vector<std::thread> segment(threads);
+
 	for (int i = 0; i < threads - 1; i++)
 	{
 		segment[i] = std::thread(
@@ -112,7 +111,7 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 	}
 	segment[threads - 1] = std::thread(
 		partRender,
-		HEIGHT - 1 - (threads-1) * STEP,
+		HEIGHT - 1 - (threads - 1) * STEP,
 		0,
 		std::ref(image),
 		start_x,
@@ -123,7 +122,7 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 
 	for (int i = 0; i < threads; i++)
 	{
-		segment[i].join();
+		segment[i].join();	
 	}
 
 	{ //paint exterier
@@ -153,9 +152,6 @@ Texture render(const double& start_x, const double& start_y, const double& size,
 	}
 
 	delete[] velAvg_map;
-	Texture texture;
-	texture.loadFromImage(image);
-	return  texture;
 }
 
 
@@ -178,13 +174,16 @@ class Fractal
 
 	void draw(int quality)
 	{
-		window->clear();
-		texture = render(x, y, size, threads, quality);
+		Image image;
+		image.create(WIDTH, HEIGHT);
+		render(image, x, y, size, threads, quality);
+		texture.loadFromImage(image);
 		RectangleShape rect_;
 		rect_.setTexture(&texture);
 		rect_.setPosition(0, 0);
 		rect_.setSize(Vector2f(WIDTH, HEIGHT));
 		rect = rect_;
+		window->clear();
 		window->draw(rect);
 		window->display();
 	}
@@ -196,7 +195,7 @@ class Fractal
 			needDisplay = false;
 			return;
 		}
-		if (lastRenderClock.getElapsedTime().asMilliseconds() >= 500 * (3-renderingProgres))
+		if (lastRenderClock.getElapsedTime().asMilliseconds() >= 200 * (3-renderingProgres))
 		{
 			switch (renderingProgres)
 			{
@@ -378,6 +377,9 @@ int main()
 	std::cout << "\n";
 
 	RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "FractalRender");
+	Image icon;
+	icon.loadFromFile("icon.png");
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	Fractal fractal(&window);
 
 	while (window.isOpen())
