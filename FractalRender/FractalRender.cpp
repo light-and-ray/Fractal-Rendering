@@ -29,7 +29,6 @@ Color calcColor(Vector2d c, double& velAvg)
 		z1.x = pow(z0.x, 3) - 3 * z0.x * pow(z0.y, 2) + c.x;
 		z1.y = 3 * pow(z0.x, 2) * z0.y - pow(z0.y, 3) + c.y;
 		
-		sn = i - log(log(pow(z1.x, 2) + pow(z1.y, 2))/log(3))/log(3) +2;
 		i += 1;
 
 		vel = 1. / (1 + pow(z1.x - z0.x, 2) + pow(z1.y - z0.y, 2));
@@ -40,6 +39,7 @@ Color calcColor(Vector2d c, double& velAvg)
 
 		if (pow(z0.x, 2) + pow(z0.y, 2) >= g_inf)
 		{
+			sn = i - log(log(pow(z1.x, 2) + pow(z1.y, 2)) / log(3)) / log(3) + 2;
 			//velAvg /= i;
 			velAvg /= sn;
 			return Color::White;
@@ -190,20 +190,23 @@ class Fractal
 
 	void display()
 	{
+		std::cout
+			<< "\rc = " << x + size / 2 << "+" << y + size / 2 << "i | "
+			<< "lim = " << g_lim << " size = " << size
+			<< " rendering " << renderingProgres
+			<< "             ";
+
 		if (renderingProgres == -1)
 		{
 			needDisplay = false;
 			return;
 		}
+		
 		if (lastRenderClock.getElapsedTime().asMilliseconds() >= 200 * (3-renderingProgres))
 		{
 			switch (renderingProgres)
 			{
 			case 2:
-				std::cout 
-					<< "\rc = " << x + size/2 << "+" << y + size /2 << "i | "
-					<< "lim = " << g_lim << " size = " << size
-					<< "             ";
 			case 1:
 			case 0:
 				draw(pow(2, renderingProgres));
@@ -294,7 +297,7 @@ class Fractal
 				clockControl.restart();
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::Dash))
+			if (Keyboard::isKeyPressed(Keyboard::Dash) and size < 600)
 			{
 				double zoom = (!Keyboard::isKeyPressed(Keyboard::LAlt)) ? 1.5 : 1.1;
 				size *= 1.5;
@@ -324,7 +327,7 @@ class Fractal
 			if (Keyboard::isKeyPressed(Keyboard::F4))
 			{
 				std::stringstream name;
-				name << "shot_" << time(NULL) << "_re" << x + size/2 << "_im" << y + size / 2 << "_size" << size << "lim" << g_lim << ".png";
+				name << "shot\\shot_" << time(NULL) << "_re" << x + size/2 << "_im" << y + size / 2 << "_size" << size << "lim" << g_lim << ".png";
 				texture.copyToImage().saveToFile(name.str());
 				std::cout << "\n" << name.str() << " SAVED\n";
 				clockControl.restart();

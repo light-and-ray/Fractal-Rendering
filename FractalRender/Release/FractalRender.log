@@ -10,28 +10,28 @@ C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(184,26):
 C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(184,26): warning C4244:         [
 C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(184,26): warning C4244:             T=float
 C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(184,26): warning C4244:         ]
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(209,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(281,45): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(280,54): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(282,24): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(282,17): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(313,1): warning C4244: /=: преобразование "double" в "ull", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(318,1): warning C4244: *=: преобразование "double" в "ull", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,32): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,32): warning C4244:         with
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,32): warning C4244:         [
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,32): warning C4244:             T=float
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,32): warning C4244:         ]
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,25): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,25): warning C4244:         with
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,25): warning C4244:         [
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,25): warning C4244:             T=float
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(339,25): warning C4244:         ]
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(370,6): warning C4129: +: неизвестная escape-последовательность
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(370,6): warning C4129: -: неизвестная escape-последовательность
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(212,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(284,45): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(283,54): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(285,24): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(285,17): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(316,1): warning C4244: /=: преобразование "double" в "ull", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(321,1): warning C4244: *=: преобразование "double" в "ull", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,32): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,32): warning C4244:         with
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,32): warning C4244:         [
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,32): warning C4244:             T=float
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,32): warning C4244:         ]
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,25): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,25): warning C4244:         with
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,25): warning C4244:         [
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,25): warning C4244:             T=float
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(342,25): warning C4244:         ]
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(373,6): warning C4129: +: неизвестная escape-последовательность
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(373,6): warning C4129: -: неизвестная escape-последовательность
   Создание кода
-  3 of 249 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+  4 of 249 functions ( 1.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   FractalRender.vcxproj -> C:\Users\Ray\source\repos\FractalRender\Release\FractalRender.exe
