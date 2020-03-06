@@ -1,8 +1,13 @@
 ﻿  FractalRender.cpp
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(30,12): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(149,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(31,12): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(155,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(238,1): warning C4244: /=: преобразование "double" в "ull", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(243,1): warning C4244: *=: преобразование "double" в "ull", возможна потеря данных
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(272,6): warning C4129: +: неизвестная escape-последовательность
+C:\Users\Ray\source\repos\FractalRender\FractalRender\FractalRender.cpp(272,6): warning C4129: -: неизвестная escape-последовательность
   Создание кода
-  Previous IPDB not found, fall back to full compilation.
-  All 145 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  4 of 154 functions ( 2.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   FractalRender.vcxproj -> C:\Users\Ray\source\repos\FractalRender\Release\FractalRender.exe

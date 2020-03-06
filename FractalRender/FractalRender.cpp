@@ -8,15 +8,16 @@ constexpr int WIDTH = 900;
 constexpr int HEIGHT = 900;
 
 typedef Vector2<double> Vector2d;
+typedef unsigned long long ull;
 
+double g_inf = 100;
+ull g_lim = 100;
 
 Color calcColor(Vector2d c)
 {
 	Vector2d z0(0, 0), z1(0, 0);
 	// (x+yi)^3 = x^3 - 3xy^2  +  (3x^2y - x^3)*i
-	double inf = 100;
-	int lim = 100;
-	int i = 0;
+	ull i = 0;
 	while (1)
 	{
 		z1.x = pow(z0.x, 3) - 3 * z0.x * pow(z0.y, 2) + c.x;
@@ -24,13 +25,13 @@ Color calcColor(Vector2d c)
 		z0 = z1;
 		i++;
 
-		if (pow(z0.x, 2) + pow(z0.y, 2) >= inf)
+		if (pow(z0.x, 2) + pow(z0.y, 2) >= g_inf)
 		{
 			//return Color::White;
-			int col = (float)i / lim * 255;
+			int col = (float)i / g_lim * 255;
 			return Color(col, col, col);
 		}
-		else if (i >= lim)
+		else if (i >= g_lim)
 		{
 			return Color::Black;
 		}
@@ -139,7 +140,12 @@ class Fractal
 
 	void display()
 	{
-		if (lastRenderClock.getElapsedTime().asMilliseconds() >= 500)
+		if (renderingProgres == -1)
+		{
+			needDisplay = false;
+			return;
+		}
+		if (lastRenderClock.getElapsedTime().asMilliseconds() >= 500 * (3-renderingProgres))
 		{
 			switch (renderingProgres)
 			{
@@ -150,9 +156,6 @@ class Fractal
 				renderingProgres -= 1;
 				lastRenderClock.restart();
 				break;
-			case -1:
-				needDisplay = false;
-				break;
 			default:
 				break;
 			}
@@ -161,7 +164,8 @@ class Fractal
 
 	void control()
 	{
-		if (clockControl.getElapsedTime().asMilliseconds() >= 200)
+		if (clockControl.getElapsedTime().asMilliseconds() >= 200 and 
+			window->hasFocus())
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Up) or
 				Keyboard::isKeyPressed(Keyboard::W))
@@ -169,7 +173,8 @@ class Fractal
 				y -= size / 5;
 				needDisplay = true;
 				renderingProgres = 2;
-				lastRenderClock.restart();
+				//lastRenderClock.restart();
+				clockControl.restart();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Down) or
@@ -178,7 +183,8 @@ class Fractal
 				y += size / 5;
 				needDisplay = true;
 				renderingProgres = 2;
-				lastRenderClock.restart();
+				//lastRenderClock.restart();
+				clockControl.restart();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Left) or
@@ -187,7 +193,8 @@ class Fractal
 				x -= size / 5;
 				needDisplay = true;
 				renderingProgres = 2;
-				lastRenderClock.restart();
+				//lastRenderClock.restart();
+				clockControl.restart();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Right) or
@@ -196,7 +203,8 @@ class Fractal
 				x += size / 5;
 				needDisplay = true;
 				renderingProgres = 2;
-				lastRenderClock.restart();
+				//lastRenderClock.restart();
+				clockControl.restart();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Equal))
@@ -210,7 +218,8 @@ class Fractal
 				window->display();
 				needDisplay = true;
 				renderingProgres = 2;
-				lastRenderClock.restart();
+				//lastRenderClock.restart();
+				clockControl.restart();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Dash))
@@ -220,14 +229,27 @@ class Fractal
 				y += 1. / 6 * size;
 				needDisplay = true;
 				renderingProgres = 2;
-				lastRenderClock.restart();
+				//lastRenderClock.restart();
+				clockControl.restart();
 			}
-			clockControl.restart();
+
+			if (Keyboard::isKeyPressed(Keyboard::F1))
+			{
+				g_lim /= 1.1;
+				clockControl.restart();
+			}
+			if (Keyboard::isKeyPressed(Keyboard::F2))
+			{
+				g_lim *= 1.1;
+				needDisplay = true;
+				renderingProgres = 2;
+				clockControl.restart();
+			}
 		}
 	}
 
 public:
-	Fractal(RenderWindow* window, double x = -1.5, double y = 1.5, double size = 3, int threads = 11) :
+	Fractal(RenderWindow* window, double x = -1.5, double y = 1.5, double size = 3, int threads = 21) :
 		x(x), y(y), size(size), threads(threads), window(window) 
 	{
 		rect.setSize(Vector2f(WIDTH, HEIGHT));
@@ -246,6 +268,11 @@ public:
 
 int main()
 {
+	std::cout << "author: light-and-ra\n"
+		<< "press \+ or \- to zoom\n"
+		<< "wasd or cross to move\n"
+		<< "F1 - decrease iterations limit\n"
+		<< "F2 - increase iterations limit\n";
 	RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "FractalRender");
 	Fractal fractal(&window);
 
