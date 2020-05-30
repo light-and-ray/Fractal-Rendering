@@ -16,6 +16,9 @@ ull g_lim = 230;
 
 Image PALETTE;
 
+bool constexpr SMOOTH_ORBIT = 1;
+bool constexpr NON_SMOOTH_ORBIT = 1;
+
 Color calcColor(Vector2d c, double& velAvg)
 {
 	Vector2d z0(0, 0), z1(0, 0);
@@ -31,17 +34,33 @@ Color calcColor(Vector2d c, double& velAvg)
 		
 		i += 1;
 
-		vel = 1. / (1 + pow(z1.x - z0.x, 2) + pow(z1.y - z0.y, 2));
-		//vel = (1. / (1 + pow(z0.x, 2) + pow(z0.y, 2)));
-		velAvg += vel;
+		if (SMOOTH_ORBIT or NON_SMOOTH_ORBIT)
+		{
+			vel = 1. / (1 + pow(z1.x - z0.x, 2) + pow(z1.y - z0.y, 2));
+			velAvg += vel;
+		}
+		//else
+		//{
+		//	vel = (1. / (1 + pow(z1.x, 2) + pow(z1.y, 2)));
+		//}
 
 		z0 = z1;
 
 		if (pow(z0.x, 2) + pow(z0.y, 2) >= g_inf)
 		{
-			sn = i - log(log(pow(z1.x, 2) + pow(z1.y, 2)) / log(3)) / log(3) + 2;
-			//velAvg /= i;
-			velAvg /= sn;
+			if (SMOOTH_ORBIT)
+			{
+				sn = i - log(log(pow(z1.x, 2) + pow(z1.y, 2)) / log(sqrt(2))) / log(3) + 2;
+				velAvg /= sn;
+			}
+			else if (NON_SMOOTH_ORBIT)
+			{
+				velAvg /= i;
+			}
+			else
+			{
+				velAvg == i;
+			}
 			return Color::White;
 			//int col = (float)i / g_lim * 255;
 			//return Color(col, col, col);
